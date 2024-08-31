@@ -3,6 +3,7 @@ const BASE_API = 'https://api.thecatapi.com/v1/'
 const API_RANDOM_CATS = BASE_API + 'images/search?limit=2&api_key=' + API_KEY
 const API_FAVORITE_CATS = BASE_API + 'favourites?&api_key=' + API_KEY
 const API_DELETE_CAT = BASE_API + 'favourites/'
+const API_UPLOAD = BASE_API + 'images/upload'
 const headers = {
     "Content-Type": "application/json",
     'x-api-key': API_KEY
@@ -150,6 +151,23 @@ const clearFavorites = () => {
             item.remove()
         })
     }
+}
+const uploadCatPhoto = async () => {
+    const form = document.getElementById('uploadCatPhoto')
+    const formData = new FormData(form)
+
+    const response = await fetch(API_UPLOAD,
+        {
+            method: 'POST',
+            headers: {
+                'x-api-key': API_KEY
+            },
+            body: formData
+        })
+
+    console.log('formData => ', formData.get('file'))
+    console.log('formData => ', formData)
+    console.log('response => ', response)
 }
 
 loadRandomCats().then()
